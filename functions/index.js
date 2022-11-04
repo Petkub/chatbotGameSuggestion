@@ -18,7 +18,7 @@ exports.webhook = functions
 
     const game_suggestion = async agent => 
     {
-      agent.add("Test 101");
+      agent.add("Hello from game_suggestion");
     };
     
     let intentMap = new Map();
