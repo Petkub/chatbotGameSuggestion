@@ -1,0 +1,251 @@
+{
+  "line": {
+    "type": "flex",
+    "altText": "Flex Message",
+    "contents": {
+      "type": "carousel",
+      "contents": [
+        {
+          "type": "bubble",
+          "hero": {
+            "type": "image",
+            "url": "https://cdn.cloudflare.steamstatic.com/steam/apps/1056600/header.jpg?t=1656393111",
+            "size": "full",
+            "aspectRatio": "20:13",
+            "aspectMode": "cover"
+          },
+          "body": {
+            "type": "box",
+            "layout": "vertical",
+            "spacing": "md",
+            "contents": [
+              {
+                "type": "text",
+                "text": "GameName",
+                "weight": "bold",
+                "size": "xl",
+                "contents": []
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "spacing": "sm",
+                "contents": [
+                  {
+                    "type": "box",
+                    "layout": "baseline",
+                    "contents": [
+                      {
+                        "type": "icon",
+                        "url": "https://mario.wiki.gallery/images/thumb/1/17/CoinMK8.png/1200px-CoinMK8.png",
+                        "size": "xxl"
+                      },
+                      {
+                        "type": "text",
+                        "text": "฿1000",
+                        "weight": "bold",
+                        "size": "xxl",
+                        "margin": "lg",
+                        "offsetBottom": "sm",
+                        "contents": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "text",
+                "text": "Release data: XX-XX-XXXX",
+                "weight": "regular",
+                "size": "md",
+                "color": "#574E4EFF",
+                "wrap": true,
+                "contents": []
+              }
+            ]
+          },
+          "footer": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "spacer",
+                "size": "xs"
+              },
+              {
+                "type": "button",
+                "action": {
+                  "type": "uri",
+                  "label": "Website",
+                  "uri": "https://linecorp.com"
+                },
+                "color": "#1B8DC5FF",
+                "style": "primary"
+              }
+            ]
+          }
+        },
+        {
+          "type": "bubble",
+          "hero": {
+            "type": "image",
+            "url": "https://cdn.cloudflare.steamstatic.com/steam/apps/1056600/header.jpg?t=1656393111",
+            "size": "full",
+            "aspectRatio": "20:13",
+            "aspectMode": "cover"
+          },
+          "body": {
+            "type": "box",
+            "layout": "vertical",
+            "spacing": "md",
+            "contents": [
+              {
+                "type": "text",
+                "text": "GameName",
+                "weight": "bold",
+                "size": "xl",
+                "contents": []
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "spacing": "sm",
+                "contents": [
+                  {
+                    "type": "box",
+                    "layout": "baseline",
+                    "contents": [
+                      {
+                        "type": "icon",
+                        "url": "https://mario.wiki.gallery/images/thumb/1/17/CoinMK8.png/1200px-CoinMK8.png",
+                        "size": "xxl"
+                      },
+                      {
+                        "type": "text",
+                        "text": "xxxxx บาท",
+                        "weight": "bold",
+                        "size": "xxl",
+                        "margin": "lg",
+                        "offsetBottom": "sm",
+                        "contents": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "text",
+                "text": "Release data: XX-XX-XXXX",
+                "weight": "regular",
+                "size": "md",
+                "color": "#574E4EFF",
+                "wrap": true,
+                "contents": []
+              }
+            ]
+          },
+          "footer": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "spacer",
+                "size": "xs"
+              },
+              {
+                "type": "button",
+                "action": {
+                  "type": "uri",
+                  "label": "Website",
+                  "uri": "https://linecorp.com"
+                },
+                "color": "#1B8DC5FF",
+                "style": "primary"
+              }
+            ]
+          }
+        },
+        {
+          "type": "bubble",
+          "hero": {
+            "type": "image",
+            "url": "https://cdn.cloudflare.steamstatic.com/steam/apps/1056600/header.jpg?t=1656393111",
+            "size": "full",
+            "aspectRatio": "20:13",
+            "aspectMode": "cover"
+          },
+          "body": {
+            "type": "box",
+            "layout": "vertical",
+            "spacing": "md",
+            "contents": [
+              {
+                "type": "text",
+                "text": "GameName",
+                "weight": "bold",
+                "size": "xl",
+                "contents": []
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "spacing": "sm",
+                "contents": [
+                  {
+                    "type": "box",
+                    "layout": "baseline",
+                    "contents": [
+                      {
+                        "type": "icon",
+                        "url": "https://mario.wiki.gallery/images/thumb/1/17/CoinMK8.png/1200px-CoinMK8.png",
+                        "size": "xxl"
+                      },
+                      {
+                        "type": "text",
+                        "text": "xxxxx บาท",
+                        "weight": "bold",
+                        "size": "xxl",
+                        "margin": "lg",
+                        "offsetBottom": "sm",
+                        "contents": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "text",
+                "text": "Release data: XX-XX-XXXX",
+                "weight": "regular",
+                "size": "md",
+                "color": "#574E4EFF",
+                "wrap": true,
+                "contents": []
+              }
+            ]
+          },
+          "footer": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "spacer",
+                "size": "xs"
+              },
+              {
+                "type": "button",
+                "action": {
+                  "type": "uri",
+                  "label": "Website",
+                  "uri": "https://linecorp.com"
+                },
+                "color": "#1B8DC5FF",
+                "style": "primary"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

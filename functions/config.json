@@ -4,5 +4,6 @@
     {
         "Content-Type":"application/json",
         "Authorization":"Bearer HyWG6j9Sun7oy9jYmJnIISscNNws/N15TPR0rEZC9Xb0YOJ72Zg1Aqhz7Uto+qkXDepG6DUP5r/WAD5rYRAN+6kWowNk9SjVHZBfMmlaZ/AaSXJKqUfyOO9puH92v3iYMKvpyZjyFKiyM41SLeewhAdB04t89/1O/w1cDnyilFU="
-    }
+    },
+    "databaseURL":"https://gamesuggestionproject.firebaseio.com/"
 }
