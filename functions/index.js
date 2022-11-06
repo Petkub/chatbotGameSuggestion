@@ -46,12 +46,9 @@ exports.webhook = functions
           }
         }
       };
-      // const payloadFlexMsg = new Payload("LINE", flexMsg, {rawPayload: true, sendAsMessage: true });
-      // return agent.add(payloadFlexMsg);
-
       return db
       .collection('Horor')
-      .where('price', '>=', 1800)
+      .where('price', '>=', 500)
       .get()
       .then((pack) => {
         let data_pack = [];
@@ -60,10 +57,12 @@ exports.webhook = functions
         });
         let rand = [];
         let bubbleFlex = 3;
+
         if(data_pack.length < 3)
         {
           bubbleFlex = data_pack.length;
         }
+
         let setRandom = myRandomInt(bubbleFlex, data_pack.length);
         rand = Array.from(setRandom);
 
@@ -153,8 +152,10 @@ exports.webhook = functions
           flexMsg.line.contents.contents.push(gameData);
         }
         const payloadFlexMsg = new Payload("LINE", flexMsg, {rawPayload: true, sendAsMessage: true });
-        agent.add(payloadFlexMsg);
-        
+        if(bubbleFlex > 0)
+          agent.add(payloadFlexMsg);
+        else
+          agent.add("ไม่พบข้อมูล");
       });
 
   };
