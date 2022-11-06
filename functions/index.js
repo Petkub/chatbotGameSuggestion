@@ -50,18 +50,21 @@ exports.webhook = functions
       // return agent.add(payloadFlexMsg);
 
       return db
-      .collection("Horor")
+      .collection('Horor')
+      .where('price', '>=', 500)
       .get()
       .then((pack) => {
         let data_pack = [];
         pack.docs.forEach(doc => {
           data_pack.push(doc.data());
         });
+        let bubbleFlex = 3;
+        let setRandom = myRandomInt(bubbleFlex, data_pack.length);
+        let rand = [];
+        rand = Array.from(setRandom);
 
-        for(let i = 0;i < 3;i++)
+        for(let i = 0;i < bubbleFlex;i++)
         {
-          setRandom = myRandomInt(3, data_pack.length);
-          const rand = Array.from(setRandom);
           let gameData =
           {
             "type": "bubble",
@@ -100,7 +103,7 @@ exports.webhook = functions
                         },
                         {
                           "type": "text",
-                          "text": data_pack[rand[i]].price,
+                          "text": `${data_pack[rand[i]].price} บาท`,
                           "weight": "bold",
                           "size": "xxl",
                           "margin": "lg",
@@ -147,6 +150,7 @@ exports.webhook = functions
         }
         const payloadFlexMsg = new Payload("LINE", flexMsg, {rawPayload: true, sendAsMessage: true });
         agent.add(payloadFlexMsg);
+        
       });
 
   };
