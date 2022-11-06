@@ -51,16 +51,20 @@ exports.webhook = functions
 
       return db
       .collection('Horor')
-      .where('price', '>=', 500)
+      .where('price', '>=', 1800)
       .get()
       .then((pack) => {
         let data_pack = [];
         pack.docs.forEach(doc => {
           data_pack.push(doc.data());
         });
-        let bubbleFlex = 3;
-        let setRandom = myRandomInt(bubbleFlex, data_pack.length);
         let rand = [];
+        let bubbleFlex = 3;
+        if(data_pack.length < 3)
+        {
+          bubbleFlex = data_pack.length;
+        }
+        let setRandom = myRandomInt(bubbleFlex, data_pack.length);
         rand = Array.from(setRandom);
 
         for(let i = 0;i < bubbleFlex;i++)
