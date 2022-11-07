@@ -1,6 +1,7 @@
 const functions = require("firebase-functions");
 const request = require("request-promise");
 const config = require("./config.json");
+const seedRandom = require("seedrandom");
 
 const { WebhookClient, Payload} = require("dialogflow-fulfillment");
 
@@ -22,7 +23,8 @@ function myRandomInt(quantity, max)
   const set = new Set();
   while(set.size < quantity) 
   {
-    set.add(Math.floor(Math.random() * max));
+    let seedRand = seedRandom();
+    set.add(Math.floor(seedRand('added entropy.', {entropy: true}) * max));
   }
   return set
 };
@@ -35,6 +37,10 @@ exports.webhook = functions
     const agent = new WebhookClient({ request: req, response: res });
 
     const gameSuggestion = async agent => {
+          agent.add("Here are some games you might like!");
+    };
+
+    const gameSuggestionCategory = async agent => {
       let flexMsg = {
         "line": {
           "type": "flex",
@@ -46,9 +52,48 @@ exports.webhook = functions
           }
         }
       };
-      return db
-      .collection('Horor')
-      .where('price', '>=', 500)
+
+      let category = req.body.queryResult.parameters.category;
+      //if category is not specified, return a random game
+
+      var gameRef = db.collection(category);
+      var price = req.body.queryResult.parameters.number;
+      var fixPrice= req.body.queryResult.parameters.price;
+      var condition = req.body.queryResult.parameters.condition;
+      
+      if(fixPrice != null && price.length == 0)
+      {
+        if(fixPrice == "Free")
+          var priceRef = gameRef.where("price", "==", 0);
+        else if(fixPrice == "Cheap")
+          var priceRef = gameRef.where("price", "<=", 500);
+        else if(fixPrice == "Expensive")
+          var priceRef = gameRef.where("price", ">=", 1000);
+      }else if (price.length == 2)
+      {
+          if(condition[0] == "less" && condition[1] == "greater")
+          {
+            var priceRef = gameRef.where("price", ">=", price[1]).where("price", "<=", price[0]);
+          }else if(condition[0] == "greater" && condition[1] == "less")
+          {
+            var priceRef = gameRef.where("price", ">=", price[0]).where("price", "<=", price[1]);
+          }else
+          var priceRef = gameRef.where("price", ">=", price[0]).where("price", "<=", price[1]);
+      }
+      else if(price.length == 1)
+      {
+        if(condition[0] == "greater")
+        {
+          var priceRef = gameRef.where("price", ">=", price[0]);
+        }else if(condition[0] == "less")
+        {
+          var priceRef = gameRef.where("price", "<=", price[0]);
+        }else
+        var priceRef = gameRef.where("price", "<=", price[0]-100).where("price", ">=", price[0]+100);
+      }else
+       var priceRef = gameRef.where("price", ">=", 0);
+
+      return priceRef
       .get()
       .then((pack) => {
         let data_pack = [];
@@ -151,9 +196,11 @@ exports.webhook = functions
           }
           flexMsg.line.contents.contents.push(gameData);
         }
-        const payloadFlexMsg = new Payload("LINE", flexMsg, {rawPayload: true, sendAsMessage: true });
         if(bubbleFlex > 0)
+        {
+          const payloadFlexMsg = new Payload("LINE", flexMsg, {rawPayload: true, sendAsMessage: true });
           agent.add(payloadFlexMsg);
+        }
         else
           agent.add("ไม่พบข้อมูล");
       });
@@ -161,6 +208,6 @@ exports.webhook = functions
   };
     let intentMap = new Map();
     intentMap.set("game-suggestion", gameSuggestion);
+    intentMap.set("game-suggestion-category", gameSuggestionCategory);
     agent.handleRequest(intentMap);
   });
-
