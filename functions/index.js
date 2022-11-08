@@ -14,7 +14,7 @@ firebase.initializeApp({
 var db = firebase.firestore();
 const region = "asia-southeast1";
 const runtimeOptions = {
-  timeoutSeconds: 4,
+  timeoutSeconds: 10,
   memory: "2GB"
 };
 
@@ -53,10 +53,12 @@ exports.webhook = functions
         }
       };
 
-      let category = req.body.queryResult.parameters.category;
-      //if category is not specified, return a random game
-
-      var gameRef = db.collection(category);
+      var category = req.body.queryResult.parameters.category;
+      var gameRef = db.collection('gameList'); //gameList
+      if(category != "Any")
+      {
+        gameRef = gameRef.where("gameType", "==", category);
+      }
       var price = req.body.queryResult.parameters.number;
       var fixPrice= req.body.queryResult.parameters.price;
       var condition = req.body.queryResult.parameters.condition;
@@ -69,15 +71,18 @@ exports.webhook = functions
           var priceRef = gameRef.where("price", "<=", 500);
         else if(fixPrice == "Expensive")
           var priceRef = gameRef.where("price", ">=", 1000);
-      }else if (price.length == 2)
+      }
+      else if (price.length == 2)
       {
-          if(condition[0] == "less" && condition[1] == "greater")
-          {
-            var priceRef = gameRef.where("price", ">=", price[1]).where("price", "<=", price[0]);
-          }else if(condition[0] == "greater" && condition[1] == "less")
-          {
-            var priceRef = gameRef.where("price", ">=", price[0]).where("price", "<=", price[1]);
-          }else
+        if(condition[0] == "less" && condition[1] == "greater")
+        {
+          var priceRef = gameRef.where("price", ">=", price[1]).where("price", "<=", price[0]);
+        }
+        else if(condition[0] == "greater" && condition[1] == "less")
+        {
+          var priceRef = gameRef.where("price", ">=", price[0]).where("price", "<=", price[1]);
+        }
+        else
           var priceRef = gameRef.where("price", ">=", price[0]).where("price", "<=", price[1]);
       }
       else if(price.length == 1)
@@ -85,13 +90,16 @@ exports.webhook = functions
         if(condition[0] == "greater")
         {
           var priceRef = gameRef.where("price", ">=", price[0]);
-        }else if(condition[0] == "less")
+        }
+        else if(condition[0] == "less")
         {
           var priceRef = gameRef.where("price", "<=", price[0]);
-        }else
-        var priceRef = gameRef.where("price", "<=", price[0]-100).where("price", ">=", price[0]+100);
-      }else
-       var priceRef = gameRef.where("price", ">=", 0);
+        }
+        else
+          var priceRef = gameRef.where("price", ">=", price[0]-50).where("price", "<=", price[0]+100);
+      }
+      else
+          var priceRef = gameRef.where("price", ">=", 0);
 
       return priceRef
       .get()
