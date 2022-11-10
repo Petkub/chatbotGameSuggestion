@@ -402,7 +402,6 @@ exports.webhook = functions
       }
       const payloadMsg = new Payload("LINE", msgQuickReply, {rawPayload: true, sendAsMessage: true});
       agent.add(payloadMsg);
-      //agent.add("ไว้เจอกันใหม่ ลาก่อน");
     };
 
     let intentMap = new Map();
