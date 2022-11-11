@@ -171,11 +171,11 @@ exports.webhook = functions
       if(fixPrice != "")
       {
         if(fixPrice == "Free")
-          var priceRef = gameRef.where("price", "==", 0);
+          priceRef = gameRef.where("price", "==", 0);
         else if(fixPrice == "Cheap")
-          var priceRef = gameRef.where("price", "<=", 500);
+          priceRef = gameRef.where("price", "<=", 500);
         else if(fixPrice == "Expensive")
-          var priceRef = gameRef.where("price", ">=", 1000);
+          priceRef = gameRef.where("price", ">=", 1000);
       }
       else if (price.length == 2)
       {
