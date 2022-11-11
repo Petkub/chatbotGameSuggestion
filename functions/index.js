@@ -18,6 +18,7 @@ const runtimeOptions = {
   memory: "2GB"
 };
 
+//function สุ่มเลข โดยใช้ seed ในการสุ่ม และ set ในการเก็บค่าเพื่อไม่ให้ค่าสุ่มซ้ำกันตามสมบัติของ set
 function myRandomInt(quantity, max) 
 {
   const set = new Set();
@@ -35,7 +36,8 @@ exports.webhook = functions
   .https.onRequest(async (req, res) => {
 
     const agent = new WebhookClient({ request: req, response: res });
-
+    
+    //intent เป็น flex message แสดง category ของเกม
     const gameSuggestion = async agent => {
       var randGame = Array.from(myRandomInt(3, 10));
       var gameList = ['Adventure', 'Arcade', 'FPS', 'Horor', 'MMO', 'MOBA', 'Puzzle', 'Racing', 'Sport', 'Survival'];
@@ -139,6 +141,7 @@ exports.webhook = functions
             agent.add(payload);
     };
 
+    //intent เป็น flex message แสดงเกมที่เลือกหรือพิมพ์มา
     const gameSuggestionCategory = async agent => {
       const text = req.body.queryResult.queryText;
       let flexMsg = {
@@ -153,7 +156,7 @@ exports.webhook = functions
           
         }
       };
-
+      
       var category = req.body.queryResult.parameters.category;
       var gameRef = db.collection('gameList'); //gameList
       if(category != "Any")
@@ -163,7 +166,8 @@ exports.webhook = functions
       var price = req.body.queryResult.parameters.number;
       var fixPrice= req.body.queryResult.parameters.price;
       var condition = req.body.queryResult.parameters.condition;
-      
+
+      var priceRef;
       if(fixPrice != "")
       {
         if(fixPrice == "Free")
@@ -177,30 +181,30 @@ exports.webhook = functions
       {
         if(condition[0] == "less" && condition[1] == "greater")
         {
-          var priceRef = gameRef.where("price", ">=", price[1]).where("price", "<=", price[0]);
+          priceRef = gameRef.where("price", ">=", price[1]).where("price", "<=", price[0]);
         }
         else if(condition[0] == "greater" && condition[1] == "less")
         {
-          var priceRef = gameRef.where("price", ">=", price[0]).where("price", "<=", price[1]);
+          priceRef = gameRef.where("price", ">=", price[0]).where("price", "<=", price[1]);
         }
         else
-          var priceRef = gameRef.where("price", ">=", price[0]).where("price", "<=", price[1]);
+          priceRef = gameRef.where("price", ">=", price[0]).where("price", "<=", price[1]);
       }
       else if(price.length == 1)
       {
         if(condition[0] == "greater")
         {
-          var priceRef = gameRef.where("price", ">=", price[0]);
+          priceRef = gameRef.where("price", ">=", price[0]);
         }
         else if(condition[0] == "less")
         {
-          var priceRef = gameRef.where("price", "<=", price[0]);
+          priceRef = gameRef.where("price", "<=", price[0]);
         }
         else
-          var priceRef = gameRef.where("price", ">=", price[0]-50).where("price", "<=", price[0]+100);
+          priceRef = gameRef.where("price", ">=", price[0]-50).where("price", "<=", price[0]+100);
       }
       else
-          var priceRef = gameRef.where("price", ">=", 0);
+          priceRef = gameRef.where("price", ">=", 0);
 
       return priceRef
       .get()
