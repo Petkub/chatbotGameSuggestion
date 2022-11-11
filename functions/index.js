@@ -3,7 +3,7 @@ const request = require("request-promise");
 const config = require("./config.json");
 const seedRandom = require("seedrandom");
 
-const { WebhookClient, Payload} = require("dialogflow-fulfillment");
+const {WebhookClient, Payload} = require("dialogflow-fulfillment");
 
 const firebase = require("firebase-admin");
 firebase.initializeApp({
@@ -12,7 +12,7 @@ firebase.initializeApp({
 });
 
 var db = firebase.firestore();
-const region = "asia-southeast1";
+const region = "asia-southeast1"; //singapore
 const runtimeOptions = {
   timeoutSeconds: 10,
   memory: "2GB"
@@ -41,7 +41,7 @@ exports.webhook = functions
     const gameSuggestion = async agent => {
       var randGame = Array.from(myRandomInt(3, 10));
       var gameList = ['Adventure', 'Arcade', 'FPS', 'Horor', 'MMO', 'MOBA', 'Puzzle', 'Racing', 'Sport', 'Survival'];
-      var price = ['ถูกๆ', 200, 400, 600, 800, 1000];
+      var price = ['ถูกๆ', 200, 400, 500];
       var randPrice = Array.from(myRandomInt(3, 5));
       let flexMsg = {
         "line": {
@@ -208,7 +208,7 @@ exports.webhook = functions
 
       return priceRef
       .get()
-      .then((pack) => {
+      .then(pack => {
         let data_pack = [];
         pack.docs.forEach(doc => {
           data_pack.push(doc.data());
@@ -399,7 +399,7 @@ exports.webhook = functions
               "action": {
               "type": "message",
               "label": gameList[rand[i]],
-              "text": gameList[rand[i]]
+              "text": "เกม " + gameList[rand[i]]
             }
           }
         msgQuickReply.line.quickReply.items.push(itemData);
