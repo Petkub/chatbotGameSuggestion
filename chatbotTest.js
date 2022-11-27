@@ -34,7 +34,7 @@ const gameSuggestions = async agent =>{
       let flexMsg ={
         "line": {
           "type": "flex",
-          "altText": "Flex Message",
+          "altText": "เลือกเกมได้เลย",
           "contents": {
             "type": "bubble",
             "hero": {

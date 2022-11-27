@@ -42,11 +42,11 @@ exports.webhook = functions
       var randGame = Array.from(myRandomInt(3, 10));
       var gameList = ['Adventure', 'Arcade', 'FPS', 'Horor', 'MMO', 'MOBA', 'Puzzle', 'Racing', 'Sport', 'Survival'];
       var price = ['ถูกๆ', 200, 400, 500];
-      var randPrice = Array.from(myRandomInt(3, 5));
+      var randPrice = Array.from(myRandomInt(3, 4));
       let flexMsg = {
         "line": {
           "type": "flex",
-          "altText": "Flex Message",
+          "altText": "เกมแนวไหนดี",
           "contents": {
             "type": "bubble",
             "direction": "ltr",
@@ -147,7 +147,7 @@ exports.webhook = functions
       let flexMsg = {
         "line": {
           "type": "flex",
-          "altText": "Flex Message",
+          "altText": "เลือกเกมได้เลย",
           "contents": {
             "type": "carousel",
             "contents": [
